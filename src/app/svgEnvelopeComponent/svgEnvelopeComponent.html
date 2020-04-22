@@ -1,0 +1,13 @@
+<svg
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  [attr.x]="x"
+  [attr.y]="y"
+  [attr.stroke]="stroke"
+  [attr.stroke-width]="strokeWidth"
+>
+  <g [attr.transform]="rotation">
+    <use [attr.xlink:href]="absUrl + '#' + pieceName"  ></use>
+  </g>
+</svg>
