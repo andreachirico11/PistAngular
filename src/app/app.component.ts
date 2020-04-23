@@ -1,126 +1,105 @@
-import { Component,  ViewChild, AfterViewChecked, AfterViewInit, ComponentFactoryResolver, ElementRef } from '@angular/core';
-import {  NgForm } from '@angular/forms';
-import { PieceNames } from './pieceNames';
-import { SvgEnvelopeComponet } from './svgEnvelopeComponent/svgEnvelopeComponent';
+import {
+  Component,
+  ViewChild,
+  AfterViewChecked,
+  AfterViewInit,
+  ComponentFactoryResolver,
+  ElementRef,
+  ViewContainerRef,
+  Renderer2,
+  ComponentRef,
+} from "@angular/core";
+import { NgForm } from "@angular/forms";
+import { PieceNames } from "./pieceNames";
+import { SvgEnvelopeComponet as SvgEnvelopeComponent } from "./svgEnvelopeComponent/svgEnvelopeComponent";
+import { Subscription } from "rxjs";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
 })
-export class AppComponent  {
-
-  @ViewChild('selection', {static: true}) selectionRadioForm: NgForm;
-  @ViewChild('mainBoard', {static: true}) mainSVG: ElementRef
-  pieceNames = PieceNames;
-  selectedValue = this.pieceNames.Straight;
-  createdElement = "corner";
+export class AppComponent {
+  @ViewChild("selection", { static: true }) selectionRadioForm: NgForm;
+  @ViewChild("mainBoard", { read: ViewContainerRef }) mainSVG;
+  @ViewChild("startPosition", { read: ViewContainerRef }) startPosition;
+  public selectedValue = "straight";
+  createdPieceHighlightEvent: Subscription;
+  selectedPiece: ComponentRef<SvgEnvelopeComponent>;
 
   createdComponentsArray = [];
 
+  constructor(private compFactory: ComponentFactoryResolver) {}
 
-  constructor(private compFactory : ComponentFactoryResolver) {}
+  createAndAddNewElement() {
+    this.done();
+    const factory = this.compFactory.resolveComponentFactory(
+      SvgEnvelopeComponent
+    );
+    factory;
+    this.selectedPiece = this.startPosition.createComponent(factory);
+    this.selectedPiece.instance.stroke = "red";
 
-   createAndAddNewElement() {
+    this.selectedPiece.instance.pieceName = this.selectedValue;
+  }
 
-    const factory = this.compFactory.resolveComponentFactory(SvgEnvelopeComponet);
-    const newComp = this.mainSVG;
+  move(dir: number) {
+    if (this.selectedPiece) {
+      switch (dir) {
+        case 1:
+          if (this.selectedPiece.instance.x < 1300) {
+            this.selectedPiece.instance.x += 100;
+          }
+          break;
+        case 2:
+          if (this.selectedPiece.instance.x > 100) {
+            this.selectedPiece.instance.x -= 100;
+          }
+          break;
+        case 3:
+          if (this.selectedPiece.instance.y < 900) {
+            this.selectedPiece.instance.y += 100;
+          }
+          break;
+        case 4:
+          if (this.selectedPiece.instance.y > 100) {
+            this.selectedPiece.instance.y -= 100;
+          }
+          break;
+        default:
+          break;
+      }
+    }
+  }
 
-  };
+  rotate() {
+    let prevRotation = this.selectedPiece.instance.rotation;
+    if (this.selectedPiece) {
+      switch (prevRotation) {
+        case "rotate(0,50,50)":
+          prevRotation = "rotate(90,50,50)";
+          break;
+        case "rotate(90,50,50)":
+          prevRotation = "rotate(180,50,50)";
+          break;
+        case "rotate(180,50,50)":
+          prevRotation = "rotate(270,50,50)";
+          break;
+        case "rotate(270,50,50)":
+          prevRotation = "rotate(0,50,50)";
+          break;
+        default:
+          console.log("default");
+          break;
+      }
+    }
+    this.selectedPiece.instance.rotation = prevRotation;
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // const highLightElement = (element) => {
-  //   if (elementHighLighted) {
-  //     elementHighLighted.setAttributeNS(null, "stroke", "black");
-  //   }
-  //   elementHighLighted = element;
-  //   elementHighLighted.setAttributeNS(null, "stroke", "red");
-  // };
-
-
-
-
-  // const moveRight = () => {
-  //   const previousX = parseInt(
-  //     elementHighLighted.getAttributeNS(null, "x")
-  //   );
-  //   if (previousX < 1300) {
-  //     elementHighLighted.setAttributeNS(null, "x", previousX + 100);
-  //   }
-  // };
-  // const moveLeft = () => {
-  //   const previousX = parseInt(
-  //     elementHighLighted.getAttributeNS(null, "x")
-  //   );
-  //   if (previousX > 0) {
-  //     elementHighLighted.setAttributeNS(null, "x", previousX - 100);
-  //   }
-  // };
-  // const moveUp = () => {
-  //   const previousY = parseInt(
-  //     elementHighLighted.getAttributeNS(null, "y")
-  //   );
-  //   if (previousY > 0) {
-  //     elementHighLighted.setAttributeNS(null, "y", previousY - 100);
-  //   }
-  // };
-  // const moveDown = () => {
-  //   const previousY = parseInt(
-  //     elementHighLighted.getAttributeNS(null, "y")
-  //   );
-  //   if (previousY < 900) {
-  //     elementHighLighted.setAttributeNS(null, "y", previousY + 100);
-  //   }
-  // };
-
-  // const rotate = () => {
-  //   if (elementHighLighted) {
-  //     const previousRotation = elementHighLighted.firstChild.getAttributeNS(
-  //       null,
-  //       "transform"
-  //     );
-  //     switch (previousRotation) {
-  //       case "rotate(0,50,50)":
-  //         elementHighLighted.firstChild.setAttributeNS(null, "transform", "rotate(90,50,50)");
-  //         break;
-  //       case "rotate(90,50,50)":
-  //         elementHighLighted.firstChild.setAttributeNS(null, "transform", "rotate(180,50,50)");
-  //         break;
-  //       case "rotate(180,50,50)":
-  //         elementHighLighted.firstChild.setAttributeNS(null, "transform", "rotate(270,50,50)");
-  //         break;
-  //       case "rotate(270,50,50)":
-  //         elementHighLighted.firstChild.setAttributeNS(null, "transform", "rotate(0,50,50)");
-  //         break;
-  //       default: console.log('default');
-
-  //         break;
-  //     }
-  //   }
-  // };
-
-  // const done = () => {
-  //   highLightElement(null);
-  // };
-
-
-
+  done() {
+    if (this.selectedPiece) {
+      this.selectedPiece.instance.stroke = "black";
+      this.selectedPiece = null;
+    }
+  }
 }

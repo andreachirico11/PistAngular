@@ -7,7 +7,8 @@
   [attr.stroke]="stroke"
   [attr.stroke-width]="strokeWidth"
 >
-  <g [attr.transform]="rotation">
+  <g [attr.transform]="rotation" (click)="emitHighLight()">
     <use [attr.xlink:href]="absUrl + '#' + pieceName"  ></use>
+    <!-- <path fill="none" d="M100,0 Q100,100 0,100"></path> -->
   </g>
 </svg>

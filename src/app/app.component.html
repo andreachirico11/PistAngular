@@ -1,14 +1,11 @@
-
-
 <svg-Parts></svg-Parts>
-
 
 <nav>
   <form #selection="ngForm">
     <label>
       <input
         type="radio"
-        value="Straight"
+        value="straight"
         name="pieceSelection"
         [(ngModel)]="selectedValue"
         #pieceSelection="ngModel"
@@ -18,7 +15,7 @@
     <label>
       <input
         type="radio"
-        value="Corner"
+        value="corner"
         name="pieceSelection"
         [(ngModel)]="selectedValue"
         #pieceSelection="ngModel"
@@ -29,12 +26,12 @@
   <button (click)="createAndAddNewElement()">Create</button>
   <br />
   <br />
-  <button onclick="moveLeft()">Move Left</button>
-  <button onclick="moveRight()">Move Right</button>
-  <button onclick="moveUp()">Move Up</button>
-  <button onclick="moveDown()">Move Down</button>
-  <button onclick="rotate()" style="display: block;">Rotate</button>
-  <button onclick="done()" style="display: block; width: 100px;">Done</button>
+  <button (click)="move(2)">Move Left</button>
+  <button (click)="move(1)">Move Right</button>
+  <button (click)="move(4)">Move Up</button>
+  <button (click)="move(3)">Move Down</button>
+  <button (click)="rotate()" style="display: block;">Rotate</button>
+  <button (click)="done()" style="display: block; width: 100px;">Done</button>
 </nav>
 
 <svg
@@ -43,8 +40,9 @@
   width="1400"
   height="1000"
   #mainBoard
->
-  <rect fill="#4dff88" width="100%" height="100%"></rect>
+  >
+  <!-- (highlightEvent)="logEvent($event)" -->
+  <rect fill="#4dff88" width="100%" height="100%" #startPosition></rect>
 
-  <svg envelope [pieceName]="createdElement" ></svg>
+  <!-- <svg envelope [pieceName]="createdElement" ></svg> -->
 </svg>
