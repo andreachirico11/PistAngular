@@ -1,0 +1,86 @@
+{
+  "db": [
+    {
+      "cerchio": [
+        {
+          "x": 400,
+          "y": 200,
+          "rotation": "rotate(0,50,50)",
+          "type": "corner",
+          "stroke": "black"
+        },
+        {
+          "x": 300,
+          "y": 200,
+          "rotation": "rotate(90,50,50)",
+          "type": "corner",
+          "stroke": "black"
+        },
+        {
+          "x": 300,
+          "y": 100,
+          "rotation": "rotate(180,50,50)",
+          "type": "corner",
+          "stroke": "black"
+        }
+      ],
+      "id": 1
+    },
+    {
+      "esse": [
+        {
+          "x": 400,
+          "y": 100,
+          "rotation": "rotate(0,50,50)",
+          "type": "straight",
+          "stroke": "black"
+        },
+        {
+          "x": 300,
+          "y": 100,
+          "rotation": "rotate(180,50,50)",
+          "type": "corner",
+          "stroke": "black"
+        },
+        {
+          "x": 300,
+          "y": 200,
+          "rotation": "rotate(90,50,50)",
+          "type": "corner",
+          "stroke": "black"
+        },
+        {
+          "x": 400,
+          "y": 200,
+          "rotation": "rotate(270,50,50)",
+          "type": "corner",
+          "stroke": "black"
+        },
+        {
+          "x": 400,
+          "y": 300,
+          "rotation": "rotate(0,50,50)",
+          "type": "corner",
+          "stroke": "black"
+        },
+        {
+          "x": 300,
+          "y": 300,
+          "rotation": "rotate(0,50,50)",
+          "type": "straight",
+          "stroke": "black"
+        }
+      ],
+      "id": 2
+    }
+  ],
+  "nameList": [
+    {
+      "list": [
+        "cerchio",
+        "esse"
+      ],
+      "id": 1
+    }
+  ]
+}

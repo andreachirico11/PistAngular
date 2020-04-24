@@ -1,5 +1,37 @@
-<nav class="navbar bg-light">
+<nav class="navbar bg-light px-5">
   <h3 class="text-warning">
     Track Generator
   </h3>
+  <div class="btn-group">
+    <div ngbDropdown>
+      <div class="btn btn-outline-warning btn-lg" ngbDropdownToggle>Load</div>
+      <div ngbDropdownMenu>
+        <a *ngFor="let link of loadedTrackList"
+        (click)="loadTrack(link)"
+         ngbDropdownItem>{{ link }}</a>
+      </div>
+    </div>
+    <div
+      class="btn btn-outline-warning btn-lg"
+      (click)="isCollapsed = !isCollapsed"
+      data-toggle="collapse"
+      data-target="#collapseForm"
+    >
+      Save
+    </div>
+  </div>
+  <div [ngbCollapse]="isCollapsed" id="collapseForm">
+    <label for="nameInput">New Track Name</label>
+    <input type="text" class="form-control" [(ngModel)]="newName" />
+    <button
+      class="btn btn-outline-success"
+      (click)="saveTrack()"
+      (click)="isCollapsed = !isCollapsed"
+      data-toggle="collapse"
+      data-target="#collapseForm"
+      ngClass
+    >
+      Save
+    </button>
+  </div>
 </nav>

@@ -14,6 +14,7 @@ export class TrackComponentComponent implements OnInit, OnDestroy  {
   @ViewChild("startPosition", { read: ViewContainerRef }) startPosition;
   selectedPiece: ComponentRef<SvgEnvelopeComponent>;
   public createSubj: Subscription;
+  public highlightSubj: Subscription;
 
   constructor(
     private compFactory: ComponentFactoryResolver,
@@ -30,6 +31,7 @@ export class TrackComponentComponent implements OnInit, OnDestroy  {
 
   ngOnDestroy() {
     this.createSubj.unsubscribe();
+    this.highlightSubj.unsubscribe();
   }
 
 
@@ -39,6 +41,16 @@ export class TrackComponentComponent implements OnInit, OnDestroy  {
     );
     this.selectedPiece = this.startPosition.createComponent(factory);
     this.selectedPiece.instance.pieceData = newPiece;
+    this.highlightSubj = this.selectedPiece.instance.highlightEv.subscribe(
+      (res: Piece) => {
+        this.updatePiece(res);
+        this.highlightSubj.unsubscribe();
+      }
+    );
+  }
+
+  updatePiece(coo: Piece) {
+    console.log(coo);
   }
 
 }

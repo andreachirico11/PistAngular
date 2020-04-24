@@ -6,8 +6,10 @@
   [attr.y]="pieceData.y"
   [attr.stroke]="pieceData.stroke"
   [attr.stroke-width]="strokeWidth"
+  (click)="highlightMe()"
+
 >
-  <g [attr.transform]="pieceData.rotation">
-    <use [attr.xlink:href]="absUrl + '#' + pieceData.type"  ></use>
+  <g [attr.transform]="pieceData.rotation" >
+    <use [attr.xlink:href]="absUrl + '#' + pieceData.type"></use>
   </g>
 </svg>
