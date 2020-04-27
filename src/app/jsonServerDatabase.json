@@ -3,23 +3,34 @@
     {
       "cerchio": [
         {
-          "x": 400,
-          "y": 200,
+          "pieceId": "crn1",
+          "x": 500,
+          "y": 300,
           "rotation": "rotate(0,50,50)",
           "type": "corner",
           "stroke": "black"
         },
         {
-          "x": 300,
+          "pieceId": "crn2",
+          "x": 500,
           "y": 200,
-          "rotation": "rotate(90,50,50)",
+          "rotation": "rotate(270,50,50)",
           "type": "corner",
           "stroke": "black"
         },
         {
-          "x": 300,
-          "y": 100,
+          "pieceId": "crn3",
+          "x": 400,
+          "y": 200,
           "rotation": "rotate(180,50,50)",
+          "type": "corner",
+          "stroke": "black"
+        },
+        {
+          "pieceId": "crn4",
+          "x": 400,
+          "y": 300,
+          "rotation": "rotate(90,50,50)",
           "type": "corner",
           "stroke": "black"
         }
@@ -27,8 +38,46 @@
       "id": 1
     },
     {
-      "esse": [
+      "star4": [
         {
+          "pieceId": "crn1",
+          "x": 500,
+          "y": 300,
+          "rotation": "rotate(180,50,50)",
+          "type": "corner",
+          "stroke": "black"
+        },
+        {
+          "pieceId": "crn3",
+          "x": 400,
+          "y": 200,
+          "rotation": "rotate(0,50,50)",
+          "type": "corner",
+          "stroke": "black"
+        },
+        {
+          "pieceId": "crn2",
+          "x": 500,
+          "y": 200,
+          "rotation": "rotate(90,50,50)",
+          "type": "corner",
+          "stroke": "black"
+        },
+        {
+          "pieceId": "crn4",
+          "x": 400,
+          "y": 300,
+          "rotation": "rotate(270,50,50)",
+          "type": "corner",
+          "stroke": "black"
+        }
+      ],
+      "id": 2
+    },
+    {
+      "tondo": [
+        {
+          "pieceId": "straight1",
           "x": 400,
           "y": 100,
           "rotation": "rotate(0,50,50)",
@@ -36,6 +85,23 @@
           "stroke": "black"
         },
         {
+          "pieceId": "straight2",
+          "x": 400,
+          "y": 300,
+          "rotation": "rotate(0,50,50)",
+          "type": "straight",
+          "stroke": "black"
+        },
+        {
+          "pieceId": "straight3",
+          "x": 500,
+          "y": 300,
+          "rotation": "rotate(0,50,50)",
+          "type": "straight",
+          "stroke": "black"
+        },
+        {
+          "pieceId": "corner4",
           "x": 300,
           "y": 100,
           "rotation": "rotate(180,50,50)",
@@ -43,42 +109,101 @@
           "stroke": "black"
         },
         {
-          "x": 300,
-          "y": 200,
-          "rotation": "rotate(90,50,50)",
+          "pieceId": "corner5",
+          "x": 600,
+          "y": 300,
+          "rotation": "rotate(0,50,50)",
           "type": "corner",
           "stroke": "black"
         },
         {
-          "x": 400,
-          "y": 200,
+          "pieceId": "corner6",
+          "x": 600,
+          "y": 100,
           "rotation": "rotate(270,50,50)",
           "type": "corner",
           "stroke": "black"
         },
         {
-          "x": 400,
+          "pieceId": "corner7",
+          "x": 300,
           "y": 300,
-          "rotation": "rotate(0,50,50)",
+          "rotation": "rotate(90,50,50)",
           "type": "corner",
           "stroke": "black"
         },
         {
+          "pieceId": "straight8",
           "x": 300,
-          "y": 300,
+          "y": 200,
+          "rotation": "rotate(90,50,50)",
+          "type": "straight",
+          "stroke": "black"
+        },
+        {
+          "pieceId": "straight9",
+          "x": 600,
+          "y": 200,
+          "rotation": "rotate(90,50,50)",
+          "type": "straight",
+          "stroke": "black"
+        },
+        {
+          "pieceId": "straight10",
+          "x": 500,
+          "y": 100,
           "rotation": "rotate(0,50,50)",
           "type": "straight",
           "stroke": "black"
         }
       ],
-      "id": 2
+      "id": 3
+    },
+    {
+      "scaffale": [
+        {
+          "pieceId": "straight1",
+          "x": 0,
+          "y": 0,
+          "rotation": "rotate(0,50,50)",
+          "type": "straight",
+          "stroke": "black"
+        },
+        {
+          "pieceId": "corner2",
+          "x": 0,
+          "y": 0,
+          "rotation": "rotate(0,50,50)",
+          "type": "corner",
+          "stroke": "black"
+        },
+        {
+          "pieceId": "corner3",
+          "x": 0,
+          "y": 100,
+          "rotation": "rotate(0,50,50)",
+          "type": "corner",
+          "stroke": "black"
+        },
+        {
+          "pieceId": "straight4",
+          "x": 0,
+          "y": 100,
+          "rotation": "rotate(0,50,50)",
+          "type": "straight",
+          "stroke": "black"
+        }
+      ],
+      "id": 4
     }
   ],
   "nameList": [
     {
       "list": [
         "cerchio",
-        "esse"
+        "star4",
+        "tondo",
+        "scaffale"
       ],
       "id": 1
     }

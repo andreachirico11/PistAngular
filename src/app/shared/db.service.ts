@@ -1,7 +1,13 @@
 import { Injectable } from "@angular/core";
-import { Piece } from "./track-generator-component/track-component/piece";
+import { Piece } from "./piece";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { take, mergeMap, switchMap, concatMap, tap, filter, map } from "rxjs/operators";
+import {
+  take,
+  switchMap,
+  tap,
+  map,
+} from "rxjs/operators";
+
 
 @Injectable({ providedIn: "root" })
 export class DbService {
@@ -16,11 +22,10 @@ export class DbService {
 
   constructor(private http: HttpClient) {}
 
-
   getList() {
     return this.http.get(this.urlNameList).pipe(
       take(1),
-      tap((res: {list: []}) => this.localNameList = res.list)
+      tap((res: { list: [] }) => (this.localNameList = res.list))
     );
   }
 
@@ -31,9 +36,9 @@ export class DbService {
   updateNameList(trackName: string) {
     this.localNameList.push(trackName);
     const strToSend = {
-      "list": this.localNameList
+      list: this.localNameList,
     };
-    return this.http.patch(this.urlNameList,strToSend);
+    return this.http.patch(this.urlNameList, strToSend);
   }
 
   saveNewTrack(trackName: string) {
@@ -43,17 +48,36 @@ export class DbService {
         { [trackName]: this.localTrack },
         { headers: this.headers }
       )
-      .pipe(
-        switchMap(() => this.updateNameList(trackName))
-      );
+      .pipe(switchMap(() => this.updateNameList(trackName)));
   }
 
   getTrackByName(trackName: string) {
-    const trackId = (this.localNameList.findIndex(name => name === trackName)) + 1;
-    return this.http.get(this.url + '/' + trackId).pipe(
+    const trackId =
+      this.localNameList.findIndex((name) => name === trackName) + 1;
+    return this.http.get(this.url + "/" + trackId).pipe(
       take(1),
-      map(res => res[trackName]),
-      tap((res: Piece[]) => this.localTrack = res)
-      );
+      map((res) => res[trackName]),
+      tap((res: Piece[]) => {
+        this.localTrack = res
+      })
+    );
+  }
+
+  generateNewId(selected: string) {
+    const l = (this.localTrack.length + 1).toString();
+    return selected + l;
+  }
+
+  findAndRemovePiece(pieceToRemove: Piece) {
+    const index = this.localTrack.findIndex(
+      (piece) => piece.pieceId === pieceToRemove.pieceId
+    );
+    if (index) {
+      this.localTrack.splice(index, 1);
+    }
+  }
+
+  clearDb() {
+    this.localTrack = [];
   }
 }

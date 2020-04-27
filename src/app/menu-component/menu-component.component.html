@@ -19,6 +19,12 @@
     >
       Save
     </div>
+    <div
+    (click)="clearTrack()"
+    class="btn btn-outline-warning btn-lg"
+    >
+      Clear
+    </div>
   </div>
   <div [ngbCollapse]="isCollapsed" id="collapseForm">
     <label for="nameInput">New Track Name</label>

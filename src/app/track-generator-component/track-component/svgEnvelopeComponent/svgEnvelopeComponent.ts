@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { Piece } from "../piece";
+import { Component, Input, Output, EventEmitter, ComponentRef } from "@angular/core";
+import { Piece } from "../../../shared/piece";
 
 @Component({
   selector: "svg[envelope]",
@@ -7,8 +7,9 @@ import { Piece } from "../piece";
 })
 export class SvgEnvelopeComponet {
   public strokeWidth = "5";
+  @Input() selfRef: ComponentRef<SvgEnvelopeComponet>;
 
-  @Output() highlightEv = new EventEmitter<Piece>();
+  @Output() highlightEv = new EventEmitter<ComponentRef<SvgEnvelopeComponet>>();
   @Input() pieceData: Piece;
 
   get absUrl(): string {
@@ -17,6 +18,6 @@ export class SvgEnvelopeComponet {
   }
 
   highlightMe() {
-    this.highlightEv.emit(this.pieceData);
+    this.highlightEv.emit(this.selfRef);
   }
 }

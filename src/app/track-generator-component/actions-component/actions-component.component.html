@@ -10,7 +10,7 @@
             <input
               class="form-check-input"
               type="radio"
-              value="straight"
+              value= "1"
               name="pieceSelection"
               [(ngModel)]="selectedValue"
               #pieceSelection="ngModel"
@@ -23,7 +23,7 @@
             <input
               class="form-check-input"
               type="radio"
-              value="corner"
+              value= "2"
               name="pieceSelection"
               [(ngModel)]="selectedValue"
               #pieceSelection="ngModel"
@@ -63,6 +63,13 @@
         style="display: block;"
       >
         Rotate
+      </button>
+      <button
+        class="btn btn-outline-light text-dark"
+        (click)="delete()"
+        style="display: block;"
+      >
+        Delete
       </button>
     </div>
   </div>

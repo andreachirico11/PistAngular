@@ -1,20 +1,30 @@
-import { Component, ComponentFactoryResolver, ViewChild, ViewContainerRef, OnDestroy, ComponentRef, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { TrackService } from '../track-actions.service';
-import { Piece } from './piece';
-import { SvgEnvelopeComponet as SvgEnvelopeComponent } from "../track-component/svgEnvelopeComponent/svgEnvelopeComponent";
-
+import {
+  Component,
+  ComponentFactoryResolver,
+  ViewChild,
+  ViewContainerRef,
+  OnDestroy,
+  ComponentRef,
+  OnInit,
+} from "@angular/core";
+import { Subscription } from "rxjs";
+import { TrackService } from "../../shared/track-actions.service";
+import { Piece } from "../../shared/piece";
+import {
+  SvgEnvelopeComponet as SvgEnvelopeComponent,
+  SvgEnvelopeComponet,
+} from "../track-component/svgEnvelopeComponent/svgEnvelopeComponent";
 
 @Component({
-  selector: 'app-track-component',
-  templateUrl: './track-component.component.html'
+  selector: "app-track-component",
+  templateUrl: "./track-component.component.html",
 })
-export class TrackComponentComponent implements OnInit, OnDestroy  {
-
+export class TrackComponentComponent implements OnInit, OnDestroy {
   @ViewChild("startPosition", { read: ViewContainerRef }) startPosition;
   selectedPiece: ComponentRef<SvgEnvelopeComponent>;
   public createSubj: Subscription;
   public highlightSubj: Subscription;
+  public clearSubj: Subscription;
 
   constructor(
     private compFactory: ComponentFactoryResolver,
@@ -22,9 +32,28 @@ export class TrackComponentComponent implements OnInit, OnDestroy  {
   ) {}
 
   ngOnInit() {
+    this.clearSubj = this.trackService.clearSub.subscribe(() => {
+      if (this.highlightSubj) {
+        this.highlightSubj.unsubscribe();
+      }
+      this.startPosition.clear();
+    });
     this.createSubj = this.trackService.createdObjectSubj.subscribe(
       (newPiece: Piece) => {
-        this.createAndAddNewElement(newPiece);
+        if (newPiece === null) {
+          this.selectedPiece = null;
+        } else if (newPiece === undefined) {
+          if (this.selectedPiece) {
+            this.selectedPiece.destroy();
+          }
+        } else {
+          if (this.selectedPiece) {
+            this.selectedPiece.destroy();
+            this.createAndAddNewElement(newPiece);
+          } else {
+            this.createAndAddNewElement(newPiece);
+          }
+        }
       }
     );
   }
@@ -32,8 +61,8 @@ export class TrackComponentComponent implements OnInit, OnDestroy  {
   ngOnDestroy() {
     this.createSubj.unsubscribe();
     this.highlightSubj.unsubscribe();
+    this.clearSubj.unsubscribe();
   }
-
 
   createAndAddNewElement(newPiece: Piece) {
     const factory = this.compFactory.resolveComponentFactory(
@@ -41,16 +70,18 @@ export class TrackComponentComponent implements OnInit, OnDestroy  {
     );
     this.selectedPiece = this.startPosition.createComponent(factory);
     this.selectedPiece.instance.pieceData = newPiece;
+    this.selectedPiece.instance.selfRef = this.selectedPiece;
     this.highlightSubj = this.selectedPiece.instance.highlightEv.subscribe(
-      (res: Piece) => {
+      (res: ComponentRef<SvgEnvelopeComponet>) => {
         this.updatePiece(res);
         this.highlightSubj.unsubscribe();
       }
     );
   }
 
-  updatePiece(coo: Piece) {
-    console.log(coo);
+  updatePiece(ref: ComponentRef<SvgEnvelopeComponet>) {
+    this.selectedPiece = ref;
+    this.selectedPiece.destroy();
+    this.trackService.enterUpdateMode(ref.instance.pieceData);
   }
-
 }

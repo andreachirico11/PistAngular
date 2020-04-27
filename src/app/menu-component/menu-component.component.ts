@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { DbService } from "../db.service";
-import { TrackService } from '../track-generator-component/track-actions.service';
+import { DbService } from "../shared/db.service";
+import { TrackService } from "../shared/track-actions.service";
 
 @Component({
   selector: "app-menu-component",
@@ -11,24 +11,29 @@ export class MenuComponentComponent implements OnInit {
   public newName: string = null;
   public loadedTrackList: string[] = [];
 
-  constructor(private dbService: DbService, private trackService: TrackService)  {}
+  constructor(
+    private dbService: DbService,
+    private trackService: TrackService
+  ) {}
 
   ngOnInit(): void {
-    this.dbService.getList().subscribe(
-      () => this.loadedTrackList = this.dbService.localNameList
-    )
+    this.dbService
+      .getList()
+      .subscribe(() => (this.loadedTrackList = this.dbService.localNameList));
   }
 
   saveTrack() {
     if (this.newName != null) {
-      this.dbService
-        .saveNewTrack(this.newName)
-        .subscribe();
+      this.trackService.save(this.newName).subscribe();
     }
     this.newName = null;
   }
 
   loadTrack(trackName: string) {
     this.trackService.load(trackName);
+  }
+
+  clearTrack() {
+    this.trackService.clear();
   }
 }

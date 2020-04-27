@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Piece } from './track-component/piece';
+import { Piece } from '../shared/piece';
 
 @Injectable({providedIn: "root"})
 
